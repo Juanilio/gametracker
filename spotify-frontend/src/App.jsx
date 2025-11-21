@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Link } from "react-router-dom"; // API de enrutado y enlaces
+import BibliotecaJuegos from "./components/BibliotecaJuegos"; // listado de juegos
+import FormularioJuego from "./components/FormularioJuego"; // crear/editar juego
+import DetalleJuego from "./components/DetalleJuego"; // detalle de un juego
+import EstadisticasPersonales from "./components/EstadisticasPersonales"; // métricas personales
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() { // componente raíz que define navegación y rutas
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div> {/* contenedor principal */}
+      <nav className="nav"> {/* barra de navegación */}
+        <Link to="/">Biblioteca</Link> {/* enlace a listado */}
+        <Link to="/agregar">Agregar Juego</Link> {/* enlace a formulario de alta */}
+        <Link to="/stats">Estadísticas</Link> {/* enlace a estadísticas */}
+      </nav>
+
+      <Routes> {/* declaración de rutas */}
+        <Route path="/" element={<BibliotecaJuegos />} /> {/* home: biblioteca */}
+        <Route path="/agregar" element={<FormularioJuego />} /> {/* ruta para crear */}
+        <Route path="/editar/:id" element={<FormularioJuego />} /> {/* ruta para editar por id */}
+        <Route path="/juego/:id" element={<DetalleJuego />} /> {/* detalle por id */}
+        <Route path="/stats" element={<EstadisticasPersonales />} /> {/* estadísticas */}
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+/* Resumen de estructura:
+- Navbar con enlaces a secciones principales
+- Configura 5 rutas: listado, alta, edición por id, detalle por id y estadísticas
+- Actúa como layout raíz envolviendo las vistas de la aplicación */
