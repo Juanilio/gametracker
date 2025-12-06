@@ -1,11 +1,7 @@
-import axios from 'axios'; // cliente HTTP
+import axios from 'axios';
 
-const api = axios.create({ // instancia configurada de axios
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api' // URL base desde env o localhost
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
 });
 
-export default api; // exporta cliente para usar en componentes
-
-/* Resumen de estructura:
-- Crea una instancia de axios con baseURL configurable
-- Facilita llamadas a la API desde el frontend */
+export default api;

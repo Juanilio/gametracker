@@ -1,78 +1,176 @@
-body {
-  background: #111;
-  color: white;
-  font-family: Arial;
+/*
+ * 🎨 Estilos Minimalistas y Oscuros
+ * Asegura funcionalidad básica y visibilidad de formularios/botones.
+ */
+
+/* === Variables y Reset Básico === */
+:root {
+  --bg-color: #121212; /* Fondo principal muy oscuro */
+  --panel-color: #1e1e1e; /* Fondo de elementos/paneles */
+  --text-color: #e0e0e0; /* Texto claro */
+  --muted-text: #a0a0a0; /* Texto secundario */
+  --accent-color: #bb86fc; /* Púrpura suave para acentos (botón principal) */
+  --border-color: #333333;
+  --radius: 8px;
+  --gap: 16px;
+  --transition-time: 0.2s;
+}
+
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
-.nav {
-  background: #222;
-  padding: 10px;
-  display: flex;
-  gap: 20px;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  padding: var(--gap);
 }
 
-.nav a {
-  color: white;
-  text-decoration: none;
-}
-
+/* === Contenedor Principal (Simula el .container en los archivos .jsx) === */
 .container {
-  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+/* === Navegación (.nav y enlaces) === */
+.nav {
+  display: flex;
+  gap: var(--gap);
+  padding-bottom: var(--gap);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2 * var(--gap);
+}
+
+.nav a, a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color var(--transition-time);
+}
+
+.nav a:hover, a:hover {
+  color: white;
+}
+
+/* === Formularios e Inputs === */
+.form, .review-form {
+  background-color: var(--panel-color);
+  border: 1px solid var(--border-color);
+  padding: var(--gap);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  margin-top: var(--gap);
+}
+
+.form input:not([type="checkbox"]),
+.review-form input:not([type="checkbox"]),
+textarea,
+select {
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: #2a2a2a;
+  color: var(--text-color);
+  outline: none;
+  transition: border-color var(--transition-time), box-shadow var(--transition-time);
+}
+
+.form input:not([type="checkbox"]):focus,
+.review-form input:not([type="checkbox"]):focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.3);
+}
+
+/* === Botones (incluye type="submit" y el botón 'Eliminar') === */
+button, .btn {
+  padding: 10px 15px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all var(--transition-time);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Estilo por defecto (para el botón Eliminar en ListaReseñas) */
+button {
+  background-color: #3a3a3a;
+  color: var(--text-color);
+}
+
+/* Botón principal (para 'Guardar' en FormularioJuego, 'Enviar' en FormularioReseña) */
+button[type="submit"], button.save {
+  background-color: var(--accent-color);
+  color: var(--bg-color); /* Contraste con el fondo */
+  font-weight: bold;
+}
+
+/* Efecto hover general para botones */
+button:hover, .btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* === Grid de Tarjetas (.grid y .card) === */
 .grid {
   display: grid;
-  gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
 .card {
-  background: #222;
-  padding: 10px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.card img {
-  max-width: 100%;
-  border-radius: 5px;
-}
-
-.card-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-}
-
-.form,
-.review-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-input,
-textarea,
-button {
-  padding: 8px;
-  border-radius: 5px;
-  border: none;
-}
-
-button {
-  background: #4caf50;
-  color: white;
+  background-color: var(--panel-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: var(--gap);
   cursor: pointer;
+  transition: transform var(--transition-time), box-shadow var(--transition-time);
 }
 
-button:hover {
-  background: #45a047;
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
+/* === Reseñas === */
 .review {
-  background: #222;
+  background-color: #242424; /* Fondo sutilmente diferente para reseñas */
+  border-radius: 8px;
   padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+.review p {
+  color: var(--muted-text);
+  margin-bottom: 4px;
+}
+
+.review strong {
+  color: var(--text-color);
+}
+
+.reviews-section {
+  margin-top: calc(var(--gap) * 3);
+}
+
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: var(--panel-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
 }

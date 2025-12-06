@@ -10,8 +10,7 @@ export default function FormularioJuego() { // formulario para crear/editar jueg
   const [form, setForm] = useState({ // estado controlado del formulario
     title: "", // título
     platform: "", // plataforma
-    coverUrl: "", // URL de portada
-    hoursPlayed: 0, // horas jugadas
+    hoursPlayed: '', // horas jugadas
     completed: false, // estado completado
     rating: "", // puntuación
     genres: "", // géneros como texto separado por comas
@@ -51,6 +50,8 @@ export default function FormularioJuego() { // formulario para crear/editar jueg
       await api.post("/games", body); // crear
     }
 
+    window.dispatchEvent(new CustomEvent('app:toast', { detail: { message: 'El juego se ha subido correctamente' } }));
+
     navigate("/"); // vuelve al inicio
   };
 
@@ -61,7 +62,6 @@ export default function FormularioJuego() { // formulario para crear/editar jueg
       <form className="form" onSubmit={handleSubmit}> {/* formulario controlado */}
         <input name="title" placeholder="Título" value={form.title} onChange={handleChange} required /> {/* título */}
         <input name="platform" placeholder="Plataforma" value={form.platform} onChange={handleChange} /> {/* plataforma */}
-        <input name="coverUrl" placeholder="URL de portada" value={form.coverUrl} onChange={handleChange} /> {/* portada */}
         <input name="hoursPlayed" type="number" placeholder="Horas jugadas" value={form.hoursPlayed} onChange={handleChange} /> {/* horas */}
         <input name="rating" type="number" min="0" max="5" placeholder="Rating (0-5)" value={form.rating} onChange={handleChange} /> {/* rating */}
 

@@ -1,30 +1,36 @@
-import { Routes, Route, Link } from "react-router-dom"; // API de enrutado y enlaces
-import BibliotecaJuegos from "./components/BibliotecaJuegos"; // listado de juegos
-import FormularioJuego from "./components/FormularioJuego"; // crear/editar juego
-import DetalleJuego from "./components/DetalleJuego"; // detalle de un juego
-import EstadisticasPersonales from "./components/EstadisticasPersonales"; // métricas personales
+import { Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import BibliotecaJuegos from "./components/BibliotecaJuegos";
+import FormularioJuego from "./components/FormularioJuego";
+import DetalleJuego from "./components/DetalleJuego";
+import EstadisticasPersonales from "./components/EstadisticasPersonales";
 
-export default function App() { // componente raíz que define navegación y rutas
+export default function App() {
+  const [toastMessage, setToastMessage] = useState(null);
+  useEffect(() => {
+    const handler = (e) => {
+      setToastMessage(e.detail?.message || "");
+      setTimeout(() => setToastMessage(null), 3000);
+    };
+    window.addEventListener('app:toast', handler);
+    return () => window.removeEventListener('app:toast', handler);
+  }, []);
   return (
-    <div> {/* contenedor principal */}
-      <nav className="nav"> {/* barra de navegación */}
-        <Link to="/">Biblioteca</Link> {/* enlace a listado */}
-        <Link to="/agregar">Agregar Juego</Link> {/* enlace a formulario de alta */}
-        <Link to="/stats">Estadísticas</Link> {/* enlace a estadísticas */}
+    <div>
+      <nav className="nav">
+        <Link to="/">Biblioteca</Link>
+        <Link to="/agregar">Agregar Juego</Link>
+        <Link to="/stats">Estadísticas</Link>
       </nav>
 
-      <Routes> {/* declaración de rutas */}
-        <Route path="/" element={<BibliotecaJuegos />} /> {/* home: biblioteca */}
-        <Route path="/agregar" element={<FormularioJuego />} /> {/* ruta para crear */}
-        <Route path="/editar/:id" element={<FormularioJuego />} /> {/* ruta para editar por id */}
-        <Route path="/juego/:id" element={<DetalleJuego />} /> {/* detalle por id */}
-        <Route path="/stats" element={<EstadisticasPersonales />} /> {/* estadísticas */}
+      <Routes>
+        <Route path="/" element={<BibliotecaJuegos />} />
+        <Route path="/agregar" element={<FormularioJuego />} />
+        <Route path="/editar/:id" element={<FormularioJuego />} />
+        <Route path="/juego/:id" element={<DetalleJuego />} />
+        <Route path="/stats" element={<EstadisticasPersonales />} />
       </Routes>
+      {toastMessage && <div className="toast">{toastMessage}</div>}
     </div>
   );
 }
-
-/* Resumen de estructura:
-- Navbar con enlaces a secciones principales
-- Configura 5 rutas: listado, alta, edición por id, detalle por id y estadísticas
-- Actúa como layout raíz envolviendo las vistas de la aplicación */
